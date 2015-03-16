@@ -55,5 +55,4 @@ Cleanup all listeners and state values:
 ```
 
 
-
 Kind regards Morten
