@@ -1,4 +1,4 @@
-EventState
+raix:eventstate [![Build Status](https://travis-ci.org/raix/Meteor-EventState.svg)](https://travis-ci.org/raix/Meteor-EventState)
 ==========
 
 Adds a simple api for maintaining evented state.
