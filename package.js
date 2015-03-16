@@ -11,10 +11,6 @@ Package.onUse(function (api) {
 
   api.use(['underscore', 'raix:eventemitter@0.1.2']);
 
-  api.addFiles('eventstate.client.js', 'client');
-
-  api.addFiles('eventstate.server.js', 'server');
-
   api.addFiles('eventstate.common.js', ['client', 'server']);
 
   api.export('EventState')
