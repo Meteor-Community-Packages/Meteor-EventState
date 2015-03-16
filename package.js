@@ -1,6 +1,6 @@
 Package.describe({
   name: "raix:eventstate",
-  version: '0.0.1',
+  version: '0.0.2',
   summary: "A server and client event state package.",
   git: "https://github.com/raix/Meteor-EventState.git"
 });
