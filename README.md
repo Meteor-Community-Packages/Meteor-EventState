@@ -15,14 +15,14 @@ The `EventState` constructor takes an object / map of initial / default state va
 ```js
   var es = new EventState({
     // Define an initial state with default value
-    'initial': { data: 'foo' }
+    'initial': { data: ['foo'] }
   });
 
   // Emit a ready state with data of `null`
   es.emitState('ready');
 
   // Emit an "initial" state with data
-  es.emitState('initial', { data: 'foo' });
+  es.emitState('initial', { data: ['foo'] });
 ```
 
 Listening to states:

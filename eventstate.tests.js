@@ -167,6 +167,31 @@ Tinytest.addAsync('State - test initial state on', function(test, completed) {
   completed();
 });
 
+Tinytest.addAsync('State - test initial state on multiple args', function(test, completed) {
+  var em = new EventState({
+    'ready': ['ok', 'bar', 'test']
+  });
+
+  var counter = 0;
+  var values = [['ok', 'bar', 'test'], ['foo', 'test', 'bar']];
+
+  test.equal(counter, 0);
+
+  em.on('ready', function(a, b, c) {
+    test.equal([a, b, c], values[counter]);
+    counter++;
+  });
+
+  test.equal(counter, 1);
+
+  em.emitState('ready', 'foo', 'test', 'bar');
+
+  test.equal(counter, 2);
+
+  completed();
+});
+
+
 //Test API:
 //test.isFalse(v, msg)
 //test.isTrue(v, msg)

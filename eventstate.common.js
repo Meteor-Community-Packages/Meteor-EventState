@@ -11,19 +11,27 @@ EventState = function(map) {
 
   // Map of state values
   self.map = map || {};
+  _.each(self.map, function(val, key) {
+    // Make sure they are all arrays of arguments _.mapObject
+    self.map[key] = _.isArray(val) ? val : [val];
+  });
 };
 
 // Extend the EventState prototype with EventEmitter
 EventState.prototype = Object.create(EventEmitter.prototype);
 
-EventState.prototype.emitState = function(name, value) {
+EventState.prototype.emitState = function(name /* arguments */) {
   var self = this;
 
+  var args = _.toArray(arguments);
+
   // Set value
-  self.map[name] = _.clone(value);
+  self.map[name] = _.clone(_.rest(args));
+  console.log('emitState', arguments, self.map[name]);
+  console.log('map', self.map);
 
   // Emit change event
-  EventEmitter.prototype.emit.call(self, name, value);
+  EventEmitter.prototype.emit.apply(self, args);
 
   // Return EventState instance
   return self;
@@ -37,7 +45,9 @@ EventState.prototype.on = function(name, listener) {
   // Check if state got a value
   if (self.map.hasOwnProperty(name)) {
     // Return the current value
-    listener.call(self, self.map[name]);
+    console.log('on', name, self.map[name]);
+  console.log('map', self.map);
+    listener.apply(self, self.map[name]);
   }
 
   // Return EventState instance
@@ -50,7 +60,9 @@ EventState.prototype.once = function(name, listener) {
   // Check if state got a value
   if (self.map.hasOwnProperty(name)) {
     // Return the value
-    listener.call(self, self.map[name]);
+    console.log('once', name, self.map[name]);
+  console.log('map', self.map);
+    listener.apply(self, self.map[name]);
   } else {
     // Add the listener
     EventEmitter.prototype.once.call(self, name, listener);
