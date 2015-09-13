@@ -27,8 +27,6 @@ EventState.prototype.emitState = function(name /* arguments */) {
 
   // Set value
   self.map[name] = _.clone(_.rest(args));
-  console.log('emitState', arguments, self.map[name]);
-  console.log('map', self.map);
 
   // Emit change event
   EventEmitter.prototype.emit.apply(self, args);
@@ -45,8 +43,6 @@ EventState.prototype.on = function(name, listener) {
   // Check if state got a value
   if (self.map.hasOwnProperty(name)) {
     // Return the current value
-    console.log('on', name, self.map[name]);
-  console.log('map', self.map);
     listener.apply(self, self.map[name]);
   }
 
@@ -60,8 +56,6 @@ EventState.prototype.once = function(name, listener) {
   // Check if state got a value
   if (self.map.hasOwnProperty(name)) {
     // Return the value
-    console.log('once', name, self.map[name]);
-  console.log('map', self.map);
     listener.apply(self, self.map[name]);
   } else {
     // Add the listener
