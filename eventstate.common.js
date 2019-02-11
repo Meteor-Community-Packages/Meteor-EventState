@@ -1,3 +1,7 @@
+function isArray (arg) {
+  return Object.prototype.toString.call(arg) === '[object Array]';
+}
+
 EventState = function(map) {
   var self = this;
 
@@ -11,10 +15,11 @@ EventState = function(map) {
 
   // Map of state values
   self.map = map || {};
-  _.each(self.map, function(val, key) {
+  for (var key in self.map) {
+    var val = self.map[key]
     // Make sure they are all arrays of arguments _.mapObject
-    self.map[key] = _.isArray(val) ? val : [val];
-  });
+    self.map[key] = isArray(val) ? val : [val];
+  }
 };
 
 // Extend the EventState prototype with EventEmitter
@@ -23,10 +28,10 @@ EventState.prototype = Object.create(EventEmitter.prototype);
 EventState.prototype.emitState = function(name /* arguments */) {
   var self = this;
 
-  var args = _.toArray(arguments);
+  var args = Array.prototype.slice.call(arguments);
 
   // Set value
-  self.map[name] = _.clone(_.rest(args));
+  self.map[name] = args.slice(1);
 
   // Emit change event
   EventEmitter.prototype.emit.apply(self, args);
@@ -72,7 +77,9 @@ EventState.prototype.clearState = function(name) {
 
   if (name) {
     // Remove the named state
-    self.map = _.omit(self.map, name);
+    var clone = Object.assign({}, self.map);
+    delete clone[name]
+    self.map = clone;
   } else {
     // Clear the whole map
     self.map = {};
