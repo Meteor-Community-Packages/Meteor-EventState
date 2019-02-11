@@ -77,8 +77,12 @@ EventState.prototype.clearState = function(name) {
 
   if (name) {
     // Remove the named state
-    var clone = Object.assign({}, self.map);
-    delete clone[name]
+    var clone = {}
+    for (var key in self.map) {
+      if (key !== name) {
+        clone[key] = self.map[key];
+      }
+    }
     self.map = clone;
   } else {
     // Clear the whole map
