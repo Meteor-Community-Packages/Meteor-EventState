@@ -1,3 +1,5 @@
+# DEPRECATED: No longer maintained
+
 raix:eventstate [![Build Status](https://travis-ci.org/raix/Meteor-EventState.svg)](https://travis-ci.org/raix/Meteor-EventState)
 ==========
 
